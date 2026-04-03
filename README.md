@@ -23,7 +23,7 @@ View your app in AI Studio: https://ai.studio/apps/4a4f1676-b4c0-43a5-a587-8c24e
 
 A GitHub Actions workflow (`.github/workflows/deploy.yml`) is included for automatic deployment to **GitHub Pages**.
 
-1. Commit and push your code to the `main` branch.
+1. Commit  and push your code to the `main` branch.
 2. In your repository on GitHub, go to **Settings > Pages**.
 3. Set the **Source** to **GitHub Actions**.
 4. The deployment will start automatically upon pushing to the `main` branch.
