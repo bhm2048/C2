@@ -105,6 +105,18 @@ export const Wheel: React.FC<WheelProps> = ({ students, onWinner, allowRepeat })
 
   const slices = useMemo(() => {
     if (students.length === 0) return [];
+    
+    // Special case for single student to show a full circle
+    if (students.length === 1) {
+      return [{
+        id: students[0].id,
+        name: students[0].name,
+        d: "M 50 50 m -50, 0 a 50,50 0 1,0 100,0 a 50,50 0 1,0 -100,0",
+        color: `hsl(0, 70%, 75%)`,
+        textRotation: 0
+      }];
+    }
+
     const angle = 360 / students.length;
     return students.map((student, i) => {
       const startAngle = i * angle;
@@ -130,7 +142,14 @@ export const Wheel: React.FC<WheelProps> = ({ students, onWinner, allowRepeat })
   }, [students]);
 
   if (students.length === 0) {
-    return <div className="text-center p-10 text-slate-400">請先匯入名單</div>;
+    return (
+      <div className="flex flex-col items-center justify-center p-20 text-slate-400">
+        <div className="w-40 h-40 rounded-full border-4 border-dashed border-slate-200 flex items-center justify-center mb-4">
+          <span className="text-sm">尚未有名單</span>
+        </div>
+        <p>請先前往「名單管理」匯入學生姓名</p>
+      </div>
+    );
   }
 
   return (
@@ -152,25 +171,25 @@ export const Wheel: React.FC<WheelProps> = ({ students, onWinner, allowRepeat })
                   d={slice.d}
                   fill={slice.color}
                   stroke="white"
-                  strokeWidth="0.2"
+                  strokeWidth="0.3"
                 />
                 <g transform={`rotate(${slice.textRotation} 50 50)`}>
                   <text
-                    x="75"
+                    x="72"
                     y="50"
-                    fill="#334155"
-                    fontSize={students.length > 20 ? "2.5" : "3.5"}
-                    fontWeight="bold"
+                    fill="#1e293b"
+                    fontSize={students.length > 20 ? "2.8" : "3.8"}
+                    fontWeight="900"
                     textAnchor="middle"
                     dominantBaseline="middle"
-                    transform="rotate(90 75 50)"
                   >
                     {slice.name}
                   </text>
                 </g>
               </g>
             ))}
-            <circle cx="50" cy="50" r="2" fill="#1e293b" />
+            <circle cx="50" cy="50" r="3" fill="#1e293b" />
+            <circle cx="50" cy="50" r="1.5" fill="#475569" />
           </svg>
         </motion.div>
       </div>
